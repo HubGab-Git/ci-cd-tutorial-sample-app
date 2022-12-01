@@ -17,12 +17,13 @@ TEST_DB = os.path.join(BASE_DIR, 'test.db')
 class BasicTests(unittest.TestCase):
 
     def setUp(self):
-        app.config['SQLALCHEMY_DATABASE_URI'] = \
-            os.environ.get('TEST_DATABASE_URL') or \
-            'sqlite:///' + TEST_DB
-        self.app = app.test_client()
-        db.drop_all()
-        db.create_all()
+        with app.app_context():
+            app.config['SQLALCHEMY_DATABASE_URI'] = \
+                os.environ.get('TEST_DATABASE_URL') or \
+                'sqlite:///' + TEST_DB
+            self.app = app.test_client()
+            db.drop_all()
+            db.create_all()
 
     def tearDown(self):
         pass
@@ -39,16 +40,17 @@ class BasicTests(unittest.TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_menu_item(self):
-        test_name = "test"
-        test_item = Menu(name=test_name)
-        db.session.add(test_item)
-        db.session.commit()
-        response = self.app.get('/menu', follow_redirects=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.mimetype, 'application/json')
-        body = json.loads(response.data)
-        self.assertTrue('today_special' in body)
-        self.assertEqual(body['today_special'], test_name)
+        with app.app_context():
+            test_name = "test"
+            test_item = Menu(name=test_name)
+            db.session.add(test_item)
+            db.session.commit()
+            response = self.app.get('/menu', follow_redirects=True)
+            self.assertEqual(response.status_code, 200)
+            self.assertEqual(response.mimetype, 'application/json')
+            body = json.loads(response.data)
+            self.assertTrue('today_special' in body)
+            self.assertEqual(body['today_special'], test_name)
 
 if __name__ == "__main__":
     unittest.main()
