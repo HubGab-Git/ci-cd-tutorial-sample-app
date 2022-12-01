@@ -20,10 +20,10 @@ jobs:
     # Steps to complete the job
     steps:
     - name: Checking out code from the repository
-      uses: actions/checkout@v2.5.0
+      uses: actions/checkout@v3
     
     - name: Setting up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2.3.3
+      uses: actions/setup-python@v4
       with:
         python-version: ${{ matrix.python-version }}
         
