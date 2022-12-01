@@ -1,5 +1,5 @@
-[![Build Status](https://github.com/HubGab-Git/ci-cd-tutorial-sample-app/actions/workflows/run_tests.yaml/badge.svg)]
-[![Release Status](https://github.com/HubGab-Git/ci-cd-tutorial-sample-app/actions/workflows/build_push_docker.yml/badge.svg)]
+![Build Status](https://github.com/HubGab-Git/ci-cd-tutorial-sample-app/actions/workflows/run_tests.yaml/badge.svg)
+![Release Status](https://github.com/HubGab-Git/ci-cd-tutorial-sample-app/actions/workflows/build_push_docker.yml/badge.svg)
 
 
 # CD/CI Tutorial Sample Application
